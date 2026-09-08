@@ -1,4 +1,4 @@
- ## Configuración para Django
+ ## Configuración del Proyecto
 
  1. Crear entorno virtual:
 
