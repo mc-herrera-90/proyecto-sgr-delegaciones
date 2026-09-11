@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio — SGR{% endblock %}
+
+{% block content %}
+<div style="background:#fff; border-radius:8px; padding:2rem; box-shadow:0 1px 3px rgba(0,0,0,0.1); border-top: 4px solid var(--sgr-primary);">
+    <h1 style="margin-top:0; font-family:'Lora', serif; color: var(--sgr-primary-dark);">
+        Bienvenido/a, {{ user.nombre|default:user.rut }}
+    </h1>
+    <p>Has iniciado sesión correctamente en el SGR.</p>
+    <p><strong>RUT:</strong> {{ user.rut }}</p>
+    {% if user.cargo %}<p><strong>Cargo:</strong> {{ user.cargo }}</p>{% endif %}
+</div>
+{% endblock %}

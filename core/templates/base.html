@@ -1,0 +1,179 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SGR{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sgr-primary: #920000;      /* Granate institucional - Municipalidad de La Serena */
+            --sgr-primary-dark: #6b0000;
+            --sgr-stone: #cdbb98;        /* Tono piedra, arquitectura colonial */
+            --sgr-bg: #f4efe4;
+            --sgr-text: #2a2320;
+            --sgr-muted: #7a6f63;
+            --sgr-error-bg: #fbe9e9;
+            --sgr-error-border: #eec8c8;
+            --sgr-error-text: #920000;
+            --sgr-success-bg: #f0fdf4;
+            --sgr-success-border: #86efac;
+            --sgr-success-text: #15803d;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--sgr-bg);
+            color: var(--sgr-text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header.sgr-navbar {
+            background-color: var(--sgr-primary);
+            color: #fff;
+            padding: 0.9rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .sgr-navbar .brand-group {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+        }
+
+        .sgr-navbar .brand-titles {
+            line-height: 1.25;
+        }
+
+        .sgr-navbar .brand-eyebrow {
+            font-size: 0.68rem;
+            color: #eecfcf;
+        }
+
+        .sgr-navbar .brand {
+            font-family: 'Lora', serif;
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        header.sgr-navbar a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        header.sgr-navbar a:hover {
+            text-decoration: underline;
+        }
+
+        .sgr-navbar nav {
+            display: flex;
+            gap: 1.2rem;
+            align-items: center;
+        }
+
+        main.sgr-main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 2rem 1rem;
+        }
+
+        .sgr-messages {
+            max-width: 420px;
+            width: 100%;
+            margin: 0 auto 1rem auto;
+        }
+
+        .sgr-alert {
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            margin-bottom: 0.6rem;
+            border: 1px solid transparent;
+        }
+
+        .sgr-alert.error {
+            background-color: var(--sgr-error-bg);
+            border-color: var(--sgr-error-border);
+            color: var(--sgr-error-text);
+        }
+
+        .sgr-alert.success {
+            background-color: var(--sgr-success-bg);
+            border-color: var(--sgr-success-border);
+            color: var(--sgr-success-text);
+        }
+
+        footer.sgr-footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--sgr-muted);
+            padding: 1rem;
+        }
+
+        @media (max-width: 480px) {
+            header.sgr-navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <header class="sgr-navbar">
+        <div class="brand-group">
+            <svg width="30" height="30" viewBox="0 0 34 34" fill="none">
+                <path d="M4 28V16a13 13 0 0 1 26 0v12" stroke="#fff" stroke-width="2.4" fill="none"/>
+                <line x1="4" y1="28" x2="4" y2="31" stroke="#fff" stroke-width="2.4"/>
+                <line x1="30" y1="28" x2="30" y2="31" stroke="#fff" stroke-width="2.4"/>
+            </svg>
+            <div class="brand-titles">
+                <div class="brand-eyebrow">Ilustre Municipalidad de La Serena</div>
+                <div class="brand">SGR</div>
+            </div>
+        </div>
+        <nav>
+            <a href="{% url 'home' %}">Inicio</a>
+            {% if user.is_authenticated %}
+                <span>Hola, {{ user.rut|default:user }}</span>
+                <a href="{% url 'logout' %}">Cerrar sesión</a>
+            {% else %}
+                <a href="{% url 'login' %}">Iniciar sesión</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main class="sgr-main">
+        <div style="width: 100%; max-width: 420px;">
+            {% if messages %}
+                <div class="sgr-messages">
+                    {% for message in messages %}
+                        <div class="sgr-alert {% if message.tags %}{{ message.tags }}{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <footer class="sgr-footer">
+        &copy; {% now "Y" %} SGR — Sistema de Gestión de Resultados · Ilustre Municipalidad de La Serena
+    </footer>
+</body>
+</html>
