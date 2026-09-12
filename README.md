@@ -45,6 +45,9 @@ python manage.py makemigrations
 # Aplicar migraciones
 python manage.py migrate
 
+# Aplicar migraciones a otra base de datos definida
+python manage.py migrate --database=sqlite
+
 # Crear superusuario
 python manage.py createsuperuser
 
