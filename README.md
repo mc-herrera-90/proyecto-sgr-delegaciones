@@ -53,4 +53,19 @@ python manage.py createsuperuser
 
 # Lanzar servidor
 python manage.py runserver
+
+# Formatear un template específico con djLint
+djlint core/templates/core/dashboard.html --reformat 
+
+# Formatear todos los templates de una aplicación
+djlint core/templates --reformat
+
+# Formatear los templates de todas las aplicaciones
+djlint . --reformat # Usar con precaución
+
+# Verificar el formato de un template
+djlint core/templates/core/dashboard.html --check
+
+# Verificar el formato de todos los templates
+djlint . --check
 ```
