@@ -22,13 +22,19 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
- 4. Ejecutar migraciones:
+ 4. Instalar los hooks de pre-commit:
+
+```
+pre-commit install
+```
+
+ 5. Ejecutar migraciones:
 
 ```
 python manage.py migrate
 ```
 
- 5. Lanzar servidor:
+ 6. Lanzar servidor:
 
 ```
 python manage.py runserver
