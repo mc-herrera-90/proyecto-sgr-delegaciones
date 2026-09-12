@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Título definio por los templates hijos -->
+    <title>{% block title %}{{ site_name }}{% endblock %}</title>
+
+    <!-- Estilos adicionales de los templates hijos -->
+     {% block extra_css %}{% endblock  %}
+</head>
+<body>
+    <main>
+        <!-- Contenido principal -->
+        {% block content %}{% endblock  %}
+    </main>
+</body>
+</html>
