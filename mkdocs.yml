@@ -20,8 +20,16 @@ nav:
     - "index.md"
 
   - Autenticación y autorización:
+      - "accounts/iniciar-sesion.md"
       - "accounts/crear-un-usuario.md"
 
+markdown_extensions: 
+  - attr_list
+  - md_in_html
+
+plugins:
+  - glightbox:
+      effect: zoom
 
 copyright: Copyright &copy; 2026 Equipo de Desarrollo · Ingeniería Informática · INACAP La Serena
 extra:
