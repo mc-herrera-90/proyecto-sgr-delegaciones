@@ -19,15 +19,9 @@ nav:
   - Inicio:
     - "index.md"
 
-
-  - Arquitectura:
-      - Patrón MTV: arquitectura/mtv.md
-
   - Autenticación y autorización:
       - "accounts/crear-un-usuario.md"
 
-  - Actividades:
-      - Mantenedor de actividades: actividades/mantenedor.md
 
 copyright: Copyright &copy; 2026 Equipo de Desarrollo · Ingeniería Informática · INACAP La Serena
 extra:
