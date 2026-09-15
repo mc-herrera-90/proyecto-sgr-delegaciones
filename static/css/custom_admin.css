@@ -1,0 +1,59 @@
+:root {
+ --admin-interface-module-background-color: rgb(172, 3, 17);
+}
+
+#main {
+ --admin-interface-main-border-top: #d0d0d0;
+ --admin-interface-module-background-color: rgb(172, 3, 17);
+ --admin-interface-save-button-background-color:rgb(172, 3, 17);
+ --accent: rgb(31, 84, 157);
+}
+.admin-interface #header {
+  --admin-interface-header-background-color: #d0d0d0;;
+  --admin-interface-header-text-color: #000;
+  --admin-interface-env-color: rgb(105, 202, 113);
+}
+
+.admin-interface #branding h1 .logo.default {
+    --admin-interface-logo-default-background-image: '';
+    object-fit: contain;
+    object-position: center;
+    display: block;
+}
+
+.admin-interface #branding h1 img.logo+span {
+  color: #444;
+}
+
+.admin-interface #header #user-tools a, .admin-interface #header #user-tools #logout-form button {
+  --admin-interface-header-link-color: rgb(202, 3, 3);
+  --admin-interface-header-link-hover-color: rgb(253, 53, 107);
+}
+.admin-interface.login #header {
+    --admin-interface-title-color: #333;
+    padding: 10px 0px;
+    text-align: center;
+    justify-content: center;
+}
+
+.admin-interface.login input[type="submit"] {
+  --secondary: #8B1D19;
+  --admin-interface-save-button-background-color: var(--secondary);
+}
+
+
+.admin-interface #header + #main {
+    border-color: #8B1D19;
+}
+#header + nav {
+  --secondary: #8B1D19;
+  --breadcrumbs-bg: var(--secondary);
+}
+
+
+.admin-interface a:link, .admin-interface a:visited {
+  color: var(--accent);
+}
+.admin-interface a[role="button"] {
+  color: #fff;
+}

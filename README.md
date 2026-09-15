@@ -42,6 +42,14 @@ python manage.py runserver
 
  Servidor disponible en `http://127.0.0.1:8000/`.
 
+ 7. Lanzar documentación:
+
+```
+mkdocs serve -a 127.0.0.1:8001
+```
+
+ Documentación disponible en `http://127.0.0.1:8001/`.
+
  ## Comandos útiles
 
 ```

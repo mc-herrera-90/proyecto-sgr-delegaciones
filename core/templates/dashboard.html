@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="container py-4">
+    {% if user.is_authenticated %}
+      <span>Rut: {{ user.rut }}</span>
+      <p>Nombre: {{ user.first_name }}</p>
+      <form action="{% url 'logout' %}" method="post" style="display: inline;">
+        {% csrf_token %}
+        <!-- En Bootstrap, la clase 'btn-link' hace que parezca un texto cliqueable normal -->
+        <button type="submit"
+                class="btn btn-link p-0 m-0 align-baseline"
+                style="text-decoration: none">Cerrar sesión</button>
+      </form>
+    {% endif %}
+    <div class="mb-4">
+      <h1 class="mb-1">Dashboard</h1>
+      <p class="text-body-secondary mb-0">Sistema de Gestión de Resultados</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">Actividades</h5>
+            <p class="card-text text-body-secondary">Gestiona las actividades registradas en el sistema.</p>
+            <a href="#" class="btn btn-primary">Ver actividades</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "admin_interface:admin/base_site.html" %}
+{% load i18n static admin_interface_tags %}
+{% block extrahead %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/custom_admin.css' %}">
+  <script src="{% static 'js/forms.js' %}" defer></script>
+{% endblock %}
+{% block branding %}
+  {% get_admin_interface_theme as theme %}
+  <h1 id="site-name">
+    <a href="{% url 'admin:index' %}">
+      {% if theme.logo_visible %}
+        {% if theme.logo %}
+          <img class="logo"
+               src="{{ theme.logo.url }}"
+               {% if theme.logo.width %}width="{{ theme.logo.width }}"{% endif %}
+               {% if theme.logo.height %}height="{{ theme.logo.height }}"{% endif %}
+               alt="SGR">
+        {% else %}
+          <img class="logo default"
+               src="{% static 'images/logo-ml.webp' %}"
+               width="200"
+               alt="SGR">
+        {% endif %}
+      {% endif %}
+      {% if theme.title_visible %}
+        <span>{% if "Django" in theme.title %}{{ site_header|default:_("Panel de administrador") }}{% else %}{% trans theme.title %}{% endif %}</span>
+      {% endif %}
+    </a>
+  </h1>
+{% endblock %}

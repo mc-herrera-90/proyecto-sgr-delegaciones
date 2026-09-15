@@ -1,0 +1,10 @@
+:root {
+ --primary-color: #8B1D19;
+}
+
+body {
+    background-color: var(--primary-color);
+}
+#content-related {
+    background-color: var(--primary-color) !important;
+}

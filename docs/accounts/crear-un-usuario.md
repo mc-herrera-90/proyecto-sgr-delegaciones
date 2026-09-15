@@ -2,7 +2,18 @@
 title: Crear usuario (administrador)
 ---
 
-El **administrador** podrá registrar nuevos usuarios en el sistema mediante el formulario de creación de usuarios.
+El usuario **administrador** podrá registrar nuevos usuarios en el sistema mediante el formulario de creación desde el panel administrativo. Para ello, debe realizar lo siguiente:
+
+- Iniciar sesión en el login administrativo.
+- Abrir la sección de cuentas de usuarios.
+
+<div class="grid cards" markdown>
+
+- ![Iniciar sesión](../assets/login-administrador.webp)
+
+- ![Abrir formulario](../assets/abrir-formulario-de-nuevo-usuario.webp)
+
+</div>
 
 Para crear un usuario, el administrador deberá:
 
