@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from accounts.views import SGRLoginView
 
 admin.site.site_header = "Panel de Administración · SGR"
 admin.site.site_title = "SGR | Administración"
@@ -25,6 +26,7 @@ admin.site.index_title = "Gestión del Sistema"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("accounts/login/", SGRLoginView.as_view(), name="login"),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', include('core.urls'))
 ]
