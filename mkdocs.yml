@@ -16,21 +16,25 @@ theme:
     code: JetBrains Mono
 
 nav:
-  - Inicio:
-    - "index.md"
+  - Inicio: index.md
 
   - Autenticación y autorización:
-      - "accounts/iniciar-sesion.md"
-      - "accounts/crear-un-usuario.md"
+      - accounts/iniciar-sesion.md
+      - accounts/crear-un-usuario.md
 
-markdown_extensions: 
+markdown_extensions:
   - attr_list
   - md_in_html
+  - pymdownx.superfences
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
 
 plugins:
   - glightbox:
       effect: zoom
 
 copyright: Copyright &copy; 2026 Equipo de Desarrollo · Ingeniería Informática · INACAP La Serena
+
 extra:
   generator: false
