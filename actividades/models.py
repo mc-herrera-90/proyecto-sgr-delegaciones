@@ -3,31 +3,72 @@ from django.db import models
 from accounts.models import Delegacion, User
 
 
-class Actividad(models.Model):
-    nombre = models.CharField(max_length=200)
-    descripcion = models.TextField(blank=True)
+class Contact(models.Model):
+    name = models.CharField("Nombre", max_length=200)
+    phone = models.CharField("Teléfono", max_length=20)
+    email = models.EmailField("Correo", blank=True)
+    observations = models.TextField( "Observaciones", blank=True)
 
-    delegacion = models.ForeignKey(
+    class Meta:
+        verbose_name = "Contacto"
+        verbose_name_plural = "Contactos"
+
+    def __str__(self):
+        return self.name
+
+
+class Activity(models.Model):
+    class Status(models.TextChoices):
+        INGRESADO = "INGRESADO", "Ingresado"
+        PENDIENTE = "PENDIENTE", "Pendiente"
+        EN_PROCESO = "EN_PROCESO", "En proceso"
+        REALIZADO = "REALIZADO", "Realizado"
+
+    name = models.CharField("Actividad", max_length=200)
+    description = models.TextField("Solicitud / problema", blank=True)
+    action = models.TextField("Acción", blank=True)
+    item = models.CharField("Ítem", max_length=200, blank=True)
+
+    contact = models.ForeignKey(
+        Contact,
+        on_delete=models.PROTECT,
+        related_name="activities",
+        verbose_name="Contacto",
+        null=True
+    )
+
+    delegation = models.ForeignKey(
         Delegacion,
         on_delete=models.PROTECT,
-        related_name="actividades",
+        related_name="activities",
+        verbose_name="Delegación",
     )
 
-    responsable = models.ForeignKey(
+    responsible = models.ForeignKey(
         User,
         on_delete=models.PROTECT,
-        related_name="actividades_responsables",
+        related_name="responsible_activities",
+        verbose_name="Responsable",
     )
 
-    fecha_inicio = models.DateField()
-    fecha_termino = models.DateField(null=True, blank=True)
+    start_date = models.DateField("Fecha")
+    end_date = models.DateField(
+        "Fecha de término",
+        null=True,
+        blank=True,
+    )
 
-    activa = models.BooleanField(default=True)
+    status = models.CharField(
+        "Estado",
+        max_length=20,
+        choices=Status.choices,
+        default=Status.INGRESADO,
+    )
 
     class Meta:
         verbose_name = "Actividad"
         verbose_name_plural = "Actividades"
-        ordering = ("fecha_inicio", "nombre")
+        ordering = ("start_date", "name")
 
     def __str__(self):
-        return self.nombre
+        return self.name

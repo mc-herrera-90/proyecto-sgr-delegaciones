@@ -28,7 +28,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("accounts/login/", SGRLoginView.as_view(), name="login"),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', include('core.urls'))
+    path('', include('core.urls')),
+    path("activities/", include("actividades.urls")),
 ]
 
 if settings.DEBUG:

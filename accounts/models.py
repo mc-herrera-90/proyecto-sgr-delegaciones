@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, Permission
 from django.db import models
 from .managers import CustomUserManager
 
@@ -20,16 +20,27 @@ class Cargo(models.Model):
     descripcion = models.TextField(blank=True)
     activo = models.BooleanField(default=True)
 
+    permisos = models.ManyToManyField(
+        Permission,
+        blank=True,
+        related_name="cargos",
+        verbose_name="Permisos",
+    )
+
     class Meta:
         verbose_name = "Cargo"
         verbose_name_plural = "Cargos"
 
     def __str__(self):
         return self.nombre
+
     
 class User(AbstractUser):
     username = None
     rut = models.CharField(max_length=12, unique=True) # para formatos 12.245.678-9
+    first_name = models.CharField("Nombres", max_length=150)
+    last_name = models.CharField("Apellidos", max_length=150)
+
     email = models.EmailField(unique=True, blank=True, null=True)
 
     USERNAME_FIELD = "rut"
@@ -52,3 +63,6 @@ class User(AbstractUser):
         null=True,
         blank=True,
     )
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}".strip()

@@ -9,4 +9,7 @@ class SGRLoginView(LoginView):
         if self.request.user.is_superuser:
             return reverse("admin:index")
 
+        if self.request.user.has_perm("actividades.manage_activities"):
+            return reverse("activities:list")
+
         return reverse("core:dashboard")

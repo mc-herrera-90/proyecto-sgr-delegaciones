@@ -16,7 +16,9 @@ theme:
     code: JetBrains Mono
 
 nav:
-  - Inicio: index.md
+  - Inicio:
+    - index.md
+    - accounts/iniciar-sesion.md
 
   - Autenticación y autorización:
       - accounts/iniciar-sesion.md

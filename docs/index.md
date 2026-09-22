@@ -1,8 +1,3 @@
----
-tenmplate: home.html
-title: "Sistema de Gestión de Resultados"
----
-
 ## Documentación de usuario
 
 Bienvenido a la **documentación de usuario del Sistema de Gestión de Resultados (SGR)**.

@@ -1,28 +1,50 @@
 from django.contrib import admin
 
-from .models import Actividad
+from .models import Activity, Contact
 
-@admin.register(Actividad)
-class ActividadAdmin(admin.ModelAdmin):
+
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
     list_display = (
-        "nombre",
-        "delegacion",
-        "fecha_inicio",
-        "fecha_termino",
-        "activa",
-    )
-
-    list_filter = (
-        "delegacion",
-        "activa",
+        "name",
+        "phone",
+        "email",
     )
 
     search_fields = (
-        "nombre",
-        "descripcion",
+        "name",
+        "phone",
+        "email",
+    )
+
+
+@admin.register(Activity)
+class ActivityAdmin(admin.ModelAdmin):
+    list_display = (
+        "name",
+        "contact",
+        "delegation",
+        "responsible",
+        "start_date",
+        "status",
+    )
+
+    list_filter = (
+        "delegation",
+        "status",
+    )
+
+    search_fields = (
+        "name",
+        "description",
+        "action",
+        "item",
+        "contact__name",
+        "responsible__first_name",
+        "responsible__last_name",
     )
 
     ordering = (
-        "fecha_inicio",
-        "nombre",
+        "start_date",
+        "name",
     )

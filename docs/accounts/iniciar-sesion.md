@@ -8,9 +8,7 @@ Para ello, el usuario deberá ingresar sus credenciales de acceso correspondient
 
 <div class="grid cards" markdown>
 
-* ![](../assets/login-usuarios-normales.webp) __Login usuarios normales__
-
-* ![](../assets/login-administrador.webp) __Login de administrador__
+* ![](../assets/ingresar-credenciales.webp) __Login usuarios__
 
 </div>
 

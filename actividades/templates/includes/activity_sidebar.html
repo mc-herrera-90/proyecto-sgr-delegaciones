@@ -1,0 +1,54 @@
+<aside class="sidebar p-3 d-flex flex-column">
+  <div>
+    <div class="mb-4">
+      <h5 class="text-white mb-1">SGR</h5>
+      <small class="text-white-50">Gestión de Actividades</small>
+    </div>
+    <nav>
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a href="{% url 'activities:list' %}"
+             class="nav-link {% if request.resolver_match.url_name == 'list' %}active{% endif %}">
+            <i class="fa-solid fa-list-check"></i>
+            Actividades
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'activities:create' %}"
+             class="nav-link {% if request.resolver_match.url_name == 'create' %}active{% endif %}">
+            <i class="fa-solid fa-plus"></i>
+            Registrar actividad
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="sidebar-user pt-3">
+    <div class="d-flex align-items-center gap-2">
+      <div class="user-icon">
+        <i class="fa-solid fa-user"></i>
+      </div>
+      <div class="user-info">
+        <div class="user-name text-white fw-semibold">
+          {{ request.user.first_name }}
+          {{ request.user.last_name }}
+        </div>
+        {% if request.user.cargo %}
+          <small class="text-white-50 d-block">{{ request.user.cargo }}</small>
+        {% endif %}
+        {% if request.user.delegacion %}
+          <small class="text-white-50 d-block">{{ request.user.delegacion }}</small>
+        {% endif %}
+      </div>
+    </div>
+    <hr class="border-light opacity-25">
+    <form action="{% url 'logout' %}" method="post">
+      {% csrf_token %}
+      <button type="submit"
+              class="nav-link border-0 bg-transparent w-100 text-start">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        Cerrar sesión
+      </button>
+    </form>
+  </div>
+</aside>

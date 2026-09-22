@@ -20,3 +20,27 @@ class RUTBackend(ModelBackend):
             return user
 
         return None
+
+
+class CargoPermissionBackend(ModelBackend):
+
+    def get_all_permissions(self, user_obj, obj=None):
+        if not user_obj.is_active or user_obj.is_anonymous:
+            return set()
+
+        permissions = super().get_all_permissions(user_obj, obj)
+
+        if not user_obj.cargo:
+            return permissions
+
+        cargo_permissions = user_obj.cargo.permisos.values_list(
+            "content_type__app_label",
+            "codename",
+        )
+
+        permissions.update(
+            f"{app_label}.{codename}"
+            for app_label, codename in cargo_permissions
+        )
+
+        return permissions
