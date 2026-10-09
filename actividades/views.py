@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import JsonResponse
 
@@ -18,6 +18,7 @@ def activity_list(request):
         "activities/activity_list.html",
         {"activities": activities},
     )
+
 
 @login_required
 def activity_create(request):
@@ -84,6 +85,18 @@ def activity_update(request, pk):
             "form": form,
             "activity": activity,
         },
+    )
+
+
+@login_required
+@permission_required("actividades.validate_activities", raise_exception=True)
+def activity_validate(request):
+    activities = Activity.objects.all().order_by("-start_date")
+
+    return render(
+        request,
+        "activities/activity_validate.html",
+        {"activities": activities},
     )
 
 
