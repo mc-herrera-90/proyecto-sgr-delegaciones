@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 
 from accounts.models import Delegacion, User
@@ -7,7 +9,7 @@ class Contact(models.Model):
     name = models.CharField("Nombre", max_length=200)
     phone = models.CharField("Teléfono", max_length=20)
     email = models.EmailField("Correo", blank=True)
-    observations = models.TextField( "Observaciones", blank=True)
+    observations = models.TextField("Observaciones", blank=True)
 
     class Meta:
         verbose_name = "Contacto"
@@ -24,6 +26,13 @@ class Activity(models.Model):
         EN_PROCESO = "EN_PROCESO", "En proceso"
         REALIZADO = "REALIZADO", "Realizado"
 
+    code = models.UUIDField(
+        "Código",
+        default=uuid.uuid4,
+        editable=False,
+        null=True,
+    )
+
     name = models.CharField("Actividad", max_length=200)
     description = models.TextField("Solicitud / problema", blank=True)
     action = models.TextField("Acción", blank=True)
@@ -34,7 +43,7 @@ class Activity(models.Model):
         on_delete=models.PROTECT,
         related_name="activities",
         verbose_name="Contacto",
-        null=True
+        null=True,
     )
 
     delegation = models.ForeignKey(
@@ -69,6 +78,10 @@ class Activity(models.Model):
         verbose_name = "Actividad"
         verbose_name_plural = "Actividades"
         ordering = ("start_date", "name")
+        permissions = [
+            ("manage_activities", "Puede gestionar actividades"),
+            ("validate_activities", "Puede validar actividades"),
+        ]
 
     def __str__(self):
         return self.name
