@@ -21,6 +21,7 @@ class ContactAdmin(admin.ModelAdmin):
 @admin.register(Activity)
 class ActivityAdmin(admin.ModelAdmin):
     list_display = (
+        "code",
         "name",
         "contact",
         "delegation",
