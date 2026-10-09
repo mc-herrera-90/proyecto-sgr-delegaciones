@@ -1,177 +1,15 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Registrar actividad{% endblock %}
+{% block title %}Nueva actividad{% endblock %}
 {% block extra_css %}
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         rel="stylesheet">
-  <style>
-    :root {
-      --primary-color: #8B1D19;
-    }
-
-    .activities-layout {
-      min-height: 100vh;
-    }
-
-    .user-icon {
-      width: 38px;
-      height: 38px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: rgba(255, 255, 255, 0.12);
-      border-radius: 50%;
-      color: #fff;
-      flex-shrink: 0;
-    }
-
-    .user-info {
-      min-width: 0;
-    }
-
-    .user-name,
-    .user-info small {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .content {
-      min-width: 0;
-      flex: 1;
-      min-height: 100vh;
-      background-color: #f8f9fa;
-    }
-
-    .page-title {
-      color: var(--primary-color);
-    }
-
-    .btn-primary {
-      --bs-btn-bg: var(--primary-color);
-      --bs-btn-border-color: var(--primary-color);
-      --bs-btn-hover-bg: #711713;
-      --bs-btn-hover-border-color: #711713;
-    }
-
-    .btn-outline-primary {
-      --bs-btn-color: var(--primary-color);
-      --bs-btn-border-color: var(--primary-color);
-      --bs-btn-hover-bg: var(--primary-color);
-      --bs-btn-hover-border-color: var(--primary-color);
-      --bs-btn-hover-color: #fff;
-    }
-
-    /* Pasos */
-    .steps {
-      display: flex;
-      align-items: center;
-      margin-bottom: 2rem;
-    }
-
-    .step {
-      display: flex;
-      align-items: center;
-      flex: 1;
-    }
-
-    .step:last-child {
-      flex: 0;
-    }
-
-    .step-number {
-      width: 36px;
-      height: 36px;
-      min-width: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      border: 2px solid #dee2e6;
-      background-color: #fff;
-      color: #6c757d;
-      font-weight: 600;
-    }
-
-    .step.active .step-number,
-    .step.completed .step-number {
-      background-color: var(--primary-color);
-      border-color: var(--primary-color);
-      color: #fff;
-    }
-
-    .step-label {
-      margin-left: 8px;
-      color: #6c757d;
-      font-size: 0.9rem;
-      white-space: nowrap;
-    }
-
-    .step.active .step-label,
-    .step.completed .step-label {
-      color: var(--primary-color);
-      font-weight: 600;
-    }
-
-    .step-line {
-      height: 2px;
-      background-color: #dee2e6;
-      flex: 1;
-      margin: 0 12px;
-    }
-
-    .step.completed .step-line {
-      background-color: var(--primary-color);
-    }
-
-    .form-step {
-      display: none;
-    }
-
-    .form-step.active {
-      display: block;
-    }
-
-    .step-title {
-      color: var(--primary-color);
-    }
-
-    .form-control:focus,
-    .form-select:focus {
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 0.2rem rgba(139, 29, 25, 0.15);
-    }
-
-    @media (max-width: 768px) {
-      .sidebar {
-        width: 210px;
-      }
-
-      .step-label {
-        display: none;
-      }
-    }
-
-    @media (max-width: 576px) {
-      .activities-layout {
-        display: block !important;
-      }
-
-      .sidebar {
-        width: 100%;
-        min-height: auto;
-      }
-
-      .sidebar-user {
-        margin-top: 1.5rem;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="{% static 'css/activity.css' %}">
 {% endblock %}
 {% block content %}
   <div class="activities-layout d-flex">
     <!-- Sidebar -->
-    {% include "includes/activity_sidebar.html" %}
+    {% include "includes/dashboard_sidebar.html" %}
     <!-- Contenido -->
     <main class="content">
       <div class="container-fluid py-4 px-4">
@@ -223,26 +61,27 @@
                   {{ form.description.errors }}
                 </div>
               </div>
-              <!-- Paso 2: Responsables -->
-              <div class="form-step">
+              <!-- Paso 2 -->
+              <div class="form-step" data-step="2">
                 <h4 class="mb-4">Responsables</h4>
                 <div class="mb-3">
                   <label for="{{ form.delegation.id_for_label }}" class="form-label">Delegación</label>
-                  <select id="{{ form.delegation.id_for_label }}"
-                          name="delegation"
-                          class="form-select"
-                          disabled>
+                  <select id="{{ form.delegation.id_for_label }}" class="form-select" disabled>
                     <option selected>{{ request.user.delegacion }}</option>
                   </select>
+                  <input type="hidden"
+                         name="delegation"
+                         value="{{ request.user.delegacion_id }}">
                 </div>
                 <div class="mb-3">
                   <label for="{{ form.responsible.id_for_label }}" class="form-label">Responsable</label>
-                  <select id="{{ form.responsible.id_for_label }}"
-                          name="responsible"
-                          class="form-select"
-                          disabled>
-                    <option selected>{{ request.user.first_name }} {{ request.user.last_name }}</option>
+                  <select id="{{ form.responsible.id_for_label }}" class="form-select" disabled>
+                    <option selected>
+                      {{ request.user.first_name }}
+                      {{ request.user.last_name }}
+                    </option>
                   </select>
+                  <input type="hidden" name="responsible" value="{{ request.user.id }}">
                 </div>
                 <div class="mb-3">
                   <label for="{{ form.contact.id_for_label }}" class="form-label">Contacto</label>
@@ -418,29 +257,71 @@
 {% block extra_script %}
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    const activitySteps = document.querySelectorAll("#activity-form .form-step");
-    const activityIndicators = document.querySelectorAll(".steps .step");
+    const activitySteps = document.querySelectorAll(
+      "#activity-form .form-step"
+    );
+
+    const activityIndicators = document.querySelectorAll(
+      ".steps .step"
+    );
+
     const nextButton = document.getElementById("next-button");
     const previousButton = document.getElementById("previous-button");
     const submitButton = document.getElementById("submit-button");
 
     let currentStep = 0;
 
+    /*
+     * Campos obligatorios de cada paso.
+     */
+    const requiredFields = {
+      0: [
+        "name",
+        "description",
+      ],
+
+      1: [
+        "delegation",
+        "responsible",
+        "contact",
+      ],
+
+      2: [
+        "start_date",
+        "end_date",
+      ],
+    };
+
     function showStep(index) {
       activitySteps.forEach((step, i) => {
-        step.classList.toggle("active", i === index);
+        step.classList.toggle(
+          "active",
+          i === index
+        );
       });
 
       activityIndicators.forEach((indicator, i) => {
-        indicator.classList.toggle("active", i === index);
-        indicator.classList.toggle("completed", i < index);
+        indicator.classList.toggle(
+          "active",
+          i === index
+        );
+
+        indicator.classList.toggle(
+          "completed",
+          i < index
+        );
       });
 
-      previousButton.classList.toggle("d-none", index === 0);
+      previousButton.classList.toggle(
+        "d-none",
+        index === 0
+      );
+
       nextButton.classList.toggle(
         "d-none",
         index === activitySteps.length - 1
       );
+
       submitButton.classList.toggle(
         "d-none",
         index !== activitySteps.length - 1
@@ -451,6 +332,40 @@
       }
     }
 
+    /*
+     * Valida los campos correspondientes
+     * al paso actual antes de continuar.
+     */
+    function validateStep(step) {
+      const fields = requiredFields[step] || [];
+
+      let valid = true;
+
+      fields.forEach((fieldName) => {
+        const field = document.querySelector(
+          `#activity-form [name="${fieldName}"]`
+        );
+
+        if (!field) {
+          return;
+        }
+
+        const value = field.value.trim();
+
+        if (!value) {
+          field.classList.add("is-invalid");
+          valid = false;
+        } else {
+          field.classList.remove("is-invalid");
+        }
+      });
+
+      return valid;
+    }
+
+    /*
+     * Obtiene el valor de un campo.
+     */
     function getValue(name) {
       const field = document.querySelector(
         `#activity-form [name="${name}"]`
@@ -461,83 +376,221 @@
       }
 
       if (field.tagName === "SELECT") {
-        return field.options[field.selectedIndex]?.text || "—";
+        return (
+          field.options[field.selectedIndex]?.text ||
+          "—"
+        );
       }
 
       return field.value || "—";
     }
 
+    /*
+     * Actualiza la información mostrada
+     * en el paso de confirmación.
+     */
     function updateSummary() {
-      document.getElementById("summary-name").textContent = getValue("name");
-      document.getElementById("summary-description").textContent = getValue("description");
-      document.getElementById("summary-delegation").textContent = getValue("delegation");
-      document.getElementById("summary-responsible").textContent = getValue("responsible");
-      document.getElementById("summary-start-date").textContent = getValue("start_date");
-      document.getElementById("summary-end-date").textContent = getValue("end_date");
+      document.getElementById(
+        "summary-name"
+      ).textContent = getValue("name");
+
+      document.getElementById(
+        "summary-description"
+      ).textContent = getValue("description");
+
+      const delegationSelect = document.getElementById(
+        "{{ form.delegation.id_for_label }}"
+      );
+
+      document.getElementById(
+        "summary-delegation"
+      ).textContent =
+        delegationSelect.options[
+          delegationSelect.selectedIndex
+        ].text;
+
+      document.getElementById(
+        "summary-responsible"
+      ).textContent =
+        "{{ request.user.first_name }} {{ request.user.last_name }}";
+
+      document.getElementById(
+        "summary-start-date"
+      ).textContent = getValue("start_date");
+
+      document.getElementById(
+        "summary-end-date"
+      ).textContent = getValue("end_date");
     }
+    /*
+     * Siguiente paso.
+     */
+    nextButton.addEventListener(
+      "click",
+      function () {
+        if (!validateStep(currentStep)) {
+          return;
+        }
 
-    nextButton.addEventListener("click", function () {
-      if (currentStep < activitySteps.length - 1) {
-        currentStep++;
-        showStep(currentStep);
+        if (
+          currentStep <
+          activitySteps.length - 1
+        ) {
+          currentStep++;
+          showStep(currentStep);
+        }
       }
-    });
+    );
 
-    previousButton.addEventListener("click", function () {
-      if (currentStep > 0) {
-        currentStep--;
-        showStep(currentStep);
+    /*
+     * Paso anterior.
+     */
+    previousButton.addEventListener(
+      "click",
+      function () {
+        if (currentStep > 0) {
+          currentStep--;
+          showStep(currentStep);
+        }
       }
-    });
+    );
 
+    /*
+     * Quita el estado de error cuando
+     * el usuario completa el campo.
+     */
+    document
+      .querySelectorAll(
+        "#activity-form input, " +
+        "#activity-form textarea, " +
+        "#activity-form select"
+      )
+      .forEach((field) => {
+
+        field.addEventListener(
+          "input",
+          function () {
+            if (this.value.trim()) {
+              this.classList.remove(
+                "is-invalid"
+              );
+            }
+          }
+        );
+
+        field.addEventListener(
+          "change",
+          function () {
+            if (this.value.trim()) {
+              this.classList.remove(
+                "is-invalid"
+              );
+            }
+          }
+        );
+      });
+
+    /*
+     * Estado inicial.
+     */
     showStep(currentStep);
   </script>
   <script>
-    document.getElementById("contact-form").addEventListener("submit", async function (event) {
-      event.preventDefault();
+    /*
+     * Creación de contactos mediante AJAX.
+     */
+    document
+      .getElementById("contact-form")
+      .addEventListener(
+        "submit",
+        async function (event) {
 
-      const form = event.target;
-      const formData = new FormData(form);
-      const select = document.getElementById("{{ form.contact.id_for_label }}");
+          event.preventDefault();
 
-      const response = await fetch("{% url 'activities:contact_create' %}", {
-        method: "POST",
-        body: formData,
-        headers: {
-          "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
-        },
-      });
+          const form = event.target;
+          const formData = new FormData(form);
 
-      const data = await response.json();
+          const select = document.getElementById(
+            "{{ form.contact.id_for_label }}"
+          );
 
-      if (data.success) {
-        const option = new Option(
-          data.contact.name,
-          data.contact.id,
-          true,
-          true
-        );
+          const response = await fetch(
+            "{% url 'activities:contact_create' %}",
+            {
+              method: "POST",
+              body: formData,
+              headers: {
+                "X-CSRFToken":
+                  formData.get(
+                    "csrfmiddlewaretoken"
+                  ),
+              },
+            }
+          );
 
-        select.add(option);
+          const data = await response.json();
 
-        form.reset();
+          if (data.success) {
 
-        bootstrap.Modal
-          .getInstance(document.getElementById("contactModal"))
-          .hide();
+            const option = new Option(
+              data.contact.name,
+              data.contact.id,
+              true,
+              true
+            );
 
-        return;
-      }
+            select.add(option);
 
-      Object.keys(data.errors).forEach((field) => {
-        const input = document.getElementById(`contact-${field}`);
-        const error = document.getElementById(`contact-${field}-error`);
+            form.reset();
 
-        if (input && error) {
-          input.classList.add("is-invalid");
-          error.textContent = data.errors[field][0].message;
+            bootstrap.Modal
+              .getInstance(
+                document.getElementById(
+                  "contactModal"
+                )
+              )
+              .hide();
+
+            /*
+             * El contacto recién creado queda
+             * seleccionado automáticamente.
+             */
+            select.classList.remove(
+              "is-invalid"
+            );
+
+            return;
+          }
+
+          /*
+           * Mostrar errores del formulario
+           * de contacto.
+           */
+          Object.keys(data.errors).forEach(
+            (field) => {
+
+              const input =
+                document.getElementById(
+                  `contact-${field}`
+                );
+
+              const error =
+                document.getElementById(
+                  `contact-${field}-error`
+                );
+
+              if (input && error) {
+
+                input.classList.add(
+                  "is-invalid"
+                );
+
+                error.textContent =
+                  data.errors[field][0].message;
+              }
+            }
+          );
         }
-      });
-    });
+      );
   </script>
 {% endblock %}

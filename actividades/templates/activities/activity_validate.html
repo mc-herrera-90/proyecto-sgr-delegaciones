@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Validar actividades{% endblock %}
+{% block content %}
+  <div class="container py-4">
+    <h1>Validar actividades</h1>
+    {% if activities %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Actividad</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for activity in activities %}
+            <tr>
+              <td>{{ activity.name }}</td>
+              <td>{{ activity.start_date|date:"d/m/Y" }}</td>
+              <td>{{ activity.get_status_display }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No hay actividades para validar.</p>
+    {% endif %}
+  </div>
+{% endblock %}
